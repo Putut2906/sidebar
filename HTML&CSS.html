@@ -198,115 +198,114 @@
     <script>
       console.log("Script berhasil dimuat!");
 
-      const transactions = [];
-      const transactionTable = document.getElementById("transactionTable");
+const transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+const transactionTable = document.getElementById("transactionTable");
 
-      document
-        .getElementById("addTransaction")
-        .addEventListener("click", () => {
-          const date = document.getElementById("date").value;
-          const description = document.getElementById("description").value;
-          const type = document.getElementById("type").value;
-          const amount = parseFloat(document.getElementById("amount").value);
+// Fungsi untuk memperbarui tabel & menyimpan ke Local Storage
+function updateTable() {
+    transactionTable.innerHTML = "";
+    let balance = 0;
 
-          if (!date || !description || isNaN(amount) || amount <= 0) {
-            alert("Mohon isi semua data dengan benar.");
-            return;
-          }
+    transactions.forEach((t, index) => {
+        balance += t.type === "income" ? t.amount : -t.amount;
 
-          transactions.push({ date, description, type, amount });
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${t.date}</td>
+            <td>${t.description}</td>
+            <td>${t.type === "income" ? t.amount.toLocaleString() : "-"}</td>
+            <td>${t.type === "expense" ? t.amount.toLocaleString() : "-"}</td>
+            <td>${balance.toLocaleString()}</td>
+        `;
+        transactionTable.appendChild(row);
+    });
 
-          updateTable();
-        });
+    // Simpan transaksi ke Local Storage
+    localStorage.setItem("transactions", JSON.stringify(transactions));
+}
 
-      function updateTable() {
-        transactionTable.innerHTML = "";
-        let balance = 0;
+// Fungsi untuk menambah transaksi baru
+document.getElementById("addTransaction").addEventListener("click", () => {
+    const date = document.getElementById("date").value;
+    const description = document.getElementById("description").value;
+    const type = document.getElementById("type").value;
+    const amount = parseFloat(document.getElementById("amount").value);
 
-        transactions.forEach((t) => {
-          balance += t.type === "income" ? t.amount : -t.amount;
+    if (!date || !description || isNaN(amount) || amount <= 0) {
+        alert("Mohon isi semua data dengan benar.");
+        return;
+    }
 
-          const row = document.createElement("tr");
-          row.innerHTML = `
-                    <td>${t.date}</td>
-                    <td>${t.description}</td>
-                    <td>${
-                      t.type === "income" ? t.amount.toLocaleString() : "-"
-                    }</td>
-                    <td>${
-                      t.type === "expense" ? t.amount.toLocaleString() : "-"
-                    }</td>
-                    <td>${balance.toLocaleString()}</td>
-                `;
-          transactionTable.appendChild(row);
-        });
-      }
+    transactions.push({ date, description, type, amount });
+    updateTable();
+});
 
-      document.getElementById("deleteLastRow").addEventListener("click", () => {
-        if (transactions.length > 0) {
-          transactions.pop();
-          updateTable();
-        } else {
-          alert("Tidak ada data untuk dihapus.");
-        }
-      });
+// Fungsi untuk menghapus baris terakhir
+document.getElementById("deleteLastRow").addEventListener("click", () => {
+    if (transactions.length > 0) {
+        transactions.pop();
+        updateTable();
+    } else {
+        alert("Tidak ada data untuk dihapus.");
+    }
+});
 
-      document.getElementById("savePdfButton").addEventListener("click", () => {
-        if (transactions.length === 0) {
-          alert("Tidak ada data transaksi untuk disimpan!");
-          return;
-        }
+// Fungsi untuk menyimpan PDF
+document.getElementById("savePdfButton").addEventListener("click", () => {
+    if (transactions.length === 0) {
+        alert("Tidak ada data transaksi untuk disimpan!");
+        return;
+    }
 
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
 
-        doc.setFontSize(16);
-        doc.text("Laporan Keuangan Harian", 14, 10);
+    doc.setFontSize(16);
+    doc.setFont("helvetica", "bold");
+    doc.text("Laporan Keuangan Harian", 14, 15);
 
-        const tableColumn = [
-          "Tanggal",
-          "Keterangan",
-          "Pemasukan (Rp)",
-          "Pengeluaran (Rp)",
-          "Saldo (Rp)",
-        ];
-        const tableRows = [];
+    const tableColumn = ["Tanggal", "Keterangan", "Pemasukan (Rp)", "Pengeluaran (Rp)", "Saldo (Rp)"];
+    const tableRows = [];
 
-        let balance = 0;
-        transactions.forEach((t) => {
-          balance += t.type === "income" ? t.amount : -t.amount;
-          tableRows.push([
+    let balance = 0;
+    transactions.forEach((t) => {
+        balance += t.type === "income" ? t.amount : -t.amount;
+        tableRows.push([
             t.date,
             t.description,
             t.type === "income" ? t.amount.toLocaleString() : "-",
             t.type === "expense" ? t.amount.toLocaleString() : "-",
             balance.toLocaleString(),
-          ]);
-        });
+        ]);
+    });
 
-        doc.autoTable({
-          head: [tableColumn],
-          body: tableRows,
-          startY: 20,
-          styles: {
+    doc.autoTable({
+        head: [tableColumn],
+        body: tableRows,
+        startY: 25,
+        styles: {
             fontSize: 10,
-            halign: "center", // Rata tengah isi tabel
-            cellPadding: 3, // Padding antar teks
-            lineWidth: 0.3, // Border semua sel tabel
-            lineColor: [0, 0, 0], // Warna border hitam
-          },
-          headStyles: {
-            fillColor: [46, 125, 50], // Warna hijau header tabel
-            textColor: [255, 255, 255], // Warna putih untuk teks header
+            halign: "center",
+            cellPadding: 3,
+            lineWidth: 0.5,
+            lineColor: [0, 0, 0],
+        },
+        headStyles: {
+            fillColor: [46, 125, 50],
+            textColor: [255, 255, 255],
             fontSize: 12,
             halign: "center",
-            lineWidth: 0.5, // Border lebih tebal untuk header
-          },
-          alternateRowStyles: { fillColor: [240, 240, 240] }, // Warna abu-abu untuk baris selang-seling
-          margin: { top: 20 }, // Margin atas
-        });
-        doc.save("Laporan_Keuangan.pdf");
-      });
+            lineWidth: 0.8,
+        },
+        alternateRowStyles: { fillColor: [240, 240, 240] },
+        margin: { top: 20 },
+    });
+
+    doc.save("Laporan_Keuangan.pdf");
+});
+
+// **Saat halaman dimuat, ambil data dari Local Storage**
+updateTable();
     </script>
   </body>
 </html>
