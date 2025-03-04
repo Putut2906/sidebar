@@ -1,0 +1,298 @@
+  <style>
+    nav a {
+      color: rgb(255, 255, 255);
+      text-decoration: none;
+      margin: 0 10px;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: none;
+      border-radius: 7px;
+      background-color: crimson;
+      padding: 5px 5px;
+    }
+    main {
+      padding: 20px;
+    }
+    section {
+      margin-bottom: 30px;
+    }
+    h1, h2 {
+      color: #000305;
+    }
+    footer {
+      background: #00060e;
+      color: white;
+      text-align: center;
+      padding: 10px 0;
+    }
+    .code {
+      position: relative;
+      width: 400px;;
+        margin: 0;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: #000000;
+        color: #f4f4f9;
+    }
+    .code .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 10px;
+        background-color: #474747;
+        border-bottom: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 14px;
+        color: #ffffff;
+      }
+      .code .header .btn-copy {
+        background-color: crimson;
+        color: white;
+        border: none;
+        padding: 3px 5px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .code .header .btn-copy:hover {
+        background-color: #0056b3;
+      }
+      .code pre {
+        margin: 0;
+        padding: 0px;
+        overflow: auto;
+        max-height: 300px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 14px;
+        white-space: pre;
+      }
+    ul {
+      padding-left: 20px;
+    }
+  </style>
+  </head>
+  <body>
+  <main>
+
+    <section id="struktur-html">
+      <h2>Struktur Dasar HTML</h2>
+      <p style="text-align: justify; text-indent: 40px;">Struktur dasar HTML adalah rangkaian elemen yang membentuk halaman web. Setiap elemen memiliki tujuan tertentu dan ditulis dalam format tag. Berikut adalah penjelasan lengkap tentang struktur dasar HTML:</p></section>
+      <div class="code">
+        <div class="header"><button class="btn-copy" onclick="copyCode()">Copy</button><span>HTML<span></div>
+          <pre id="code-block">
+            <code>&lt;!DOCTYPE html&gt;
+  &lt;html lang="en"&gt;
+  &lt;head&gt;
+      &lt;meta charset="UTF-8"&gt;
+      &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+      &lt;meta name="description" content="Deskripsi halaman di sini"&gt;
+      &lt;meta name="keywords" content="kata, kunci, di, sini"&gt;
+      &lt;meta name="author" content="Nama Penulis"&gt;
+      &lt;link rel="stylesheet" href="styles.css"&gt;
+      &lt;title&gt;Judul Halaman&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+      &lt;header&gt;
+          &lt;h1&gt;Judul Utama&lt;/h1&gt;
+          &lt;nav&gt;
+              &lt;ul&gt;
+                  &lt;li&gt;&lt;a href="#section1"&gt;Section 1&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href="#section2"&gt;Section 2&lt;/a&gt;&lt;/li&gt;
+                  &lt;li&gt;&lt;a href="#section3"&gt;Section 3&lt;/a&gt;&lt;/li&gt;
+              &lt;/ul&gt;
+          &lt;/nav&gt;
+      &lt;/header&gt;
+  
+      &lt;main&gt;
+          &lt;section id="section1"&gt;
+              &lt;h2&gt;Section 1&lt;/h2&gt;
+              &lt;p&gt;Isi dari section 1.&lt;/p&gt;
+          &lt;/section&gt;
+          &lt;section id="section2"&gt;
+              &lt;h2&gt;Section 2&lt;/h2&gt;
+              &lt;p&gt;Isi dari section 2.&lt;/p&gt;
+          &lt;/section&gt;
+          &lt;section id="section3"&gt;
+              &lt;h2&gt;Section 3&lt;/h2&gt;
+              &lt;p&gt;Isi dari section 3.&lt;/p&gt;
+          &lt;/section&gt;
+      &lt;/main&gt;
+  
+      &lt;footer&gt;
+          &lt;p&gt;&copy; 2025 Nama Anda. All rights reserved.&lt;/p&gt;
+      &lt;/footer&gt;
+  
+      &lt;script src="script.js"&gt;&lt;/script&gt;
+  &lt;/body&gt;
+  &lt;/html&gt;
+  </code>
+          </pre>
+      </div>
+        </div>
+  <section>
+  <ul>
+    <li style="text-align: justify;"><strong>&lt;!DOCTYPE html&gt;</strong>Ini adalah deklarasi tipe dokumen yang memberi tahu browser bahwa dokumen ini adalah HTML5.</li>
+    <li style="text-align: justify;"><strong>&lt;html&gt;</strong> Elemen ini merupakan elemen root dari sebuah halaman web. Semua elemen HTML lainnya akan berada di dalam elemen <strong>&lt;html&gt;</strong></li> 
+    <li style="text-align: justify;"><strong>&lt;head&gt;</strong> Bagian ini berisi informasi metadata tentang halaman, seperti judul halaman, penghubung ke file CSS, skrip JavaScript, dan informasi lainnya yang tidak ditampilkan langsung di halaman web. Beberapa tag dalam bagian <strong>&lt;head&gt; </strong>meliputi:</li>
+    <ol>
+      <li><strong>&lt;title&gt; </strong>Menentukan judul halaman yang muncul di tab browser.</li>
+      <li><strong>&lt;meta&gt;</strong> yaitu Memberikan informasi tentang karakter encoding atau deskripsi halaman. &lt;meta&gt; terdiri : <ul>
+        <li><strong>&lt;meta charset="UTF-8"&gt; : </strong>Mengatur encoding karakter (UTF-8 mendukung semua bahasa).</li>
+        <li><strong>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt; : </strong>Mengatur responsivitas pada perangkat yang berbeda.</li>
+        <li><strong>&lt;meta name="description" content="..."&gt; : </strong>Menyediakan deskripsi halaman untuk SEO.</li>
+      </ul></li>
+      <li><strong>&lt;link&gt;</strong> Menghubungkan file eksternal, seperti file CSS.</li>
+      <li><strong>&lt;script&gt;</strong> Menyisipkan kode JavaScript</li>
+    </ol>
+    <li style="text-align: justify;"><strong>&lt;body&gt;</strong> Bagian ini berisi konten yang akan ditampilkan di halaman web. Semua elemen yang terlihat oleh pengguna berada di dalam elemen &lt;body&gt;, seperti teks, gambar, tabel, dan formulir. Struktur Konten dalam <strong>&lt;body&gt;</strong> ada berbagai elemen yang dapat digunakan untuk menyusun konten halaman. <br> 
+      </li>
+  </ul>
+  </section>
+  
+  <section>
+    <h1>Elemen Heading dan Teks</h1>
+    <ol>Beberapa elemen dasar yang sering digunakan 
+      <li><strong>&lt;h1&gt;</strong><strong> hingga &lt;h6&gt; : </strong>Untuk membuat heading (judul), dari yang paling penting &lt;h1&gt; hingga &lt;h6&gt;.</li>
+      <li><strong>&lt;p&gt;</strong> Digunakan untuk membuat paragraf.</li>
+      <li><strong>&lt;br&gt; : </strong>Menambahkan baris baru di dalam teks.</li>
+      <li><strong>&lt;hr&gt; : </strong>Menyisipkan garis horizontal sebagai pemisah.</li>
+      <li><strong>&lt;strong&gt; : </strong>untuk teks yang penting (dicetak tebal)</li>
+      <li><strong>&lt;em&gt; : </strong>untuk teks yang diberi penekanan (dicetak miring).</li>
+    </ol>
+  </section>
+  
+  <section>
+    <h1>Elemen Link dan Gambar</h1>
+    <ol>
+      <li><strong>&lt;a&gt; : </strong> Membuat tautan ke halaman lain atau lokasi tertentu. Contoh:<br>&lt;a href="https://example.com"&gt;Tautan&lt;a/&gt;</li>
+      <li><strong>&lt;img&gt; : </strong>Menyisipkan gambar. Contoh : <br><strong>&lt;img src="image.jpg" alt="Deskripsi Gambar"&gt;</strong></li>
+    </ol>
+  </section>
+  
+  <section>
+    <h1>Elemen Daftar</h1>
+    <div class="code">
+      <div class="header"><button class="btn-copy" onclick="copyCode()">Copy</button><span>HTML<span></div>
+        <pre id="code-block">
+    <code>&lt;ol&gt;
+      &lt;li&gt;item 1&lt;/li&gt;<br>    &lt;li&gt;item 2&lt;/li&gt;
+    &lt;/ol&gt;</code>
+        </pre>
+    </div>
+    <li><strong>&lt;ol&gt;</strong>Membuat daftar berurutan (numbered list).</li>
+      </div>
+    <div class="code">
+      <div class="header"><button class="btn-copy" onclick="copyCode()">Copy</button><span>HTML<span></div>
+        <pre id="code-block">
+      <code>&lt;ul&gt;
+        &lt;li&gt;item 1&lt;/li&gt;<br>    &lt;li&gt;item 2&lt;/li&gt;
+      &lt;/ul&gt;
+      </code>
+        </pre>
+    </div>
+    <li><strong>&lt;ul&gt;</strong>Membuat daftar tidak berurutan (bullet list).</li>
+      </div>
+      <li>  <strong>&lt;li&gt; : </strong>Elemen untuk setiap item dalam daftar.</li>
+  </section>
+  
+  <section>
+    <h1>Elemen Formulir</h1>
+    <li><strong>&lt;from&gt; : </strong>Membuat formulir untuk input pengguna.</li>
+    <li><strong>&lt;input&gt; : </strong>Elemen input (teks, tombol, dll).
+      <div class="code">
+        <div class="header"><button class="btn-copy" onclick="copyCode()">Copy</button><span>HTML<span></div>
+          <pre id="code-block">
+            <code>
+    Contoh : &lt;input type="text" placeholder="Nama Anda"&gt;</li>
+            </code>
+          </pre>
+      </div>
+        </div>
+    <li><strong>&lt;textarea&gt; : </strong>Membuat area teks multi-baris.</li>
+    <li><strong>&lt;button&gt; : </strong>Membuat tombol.</li>
+    <li><strong>&lt;label&gt; : </strong>Memberikan label untuk elemen input.</li>
+  </section>
+  
+  <section>
+    <h1>Elemen Struktur Halaman</h1>
+    <ul>
+      <li><strong>&lt;header&gt; : </strong>Bagian atas halaman, seperti logo atau menu navigasi.</li>
+      <li><strong>&lt;nav&gt; : </strong>Menyimpan tautan navigasi</li>
+      <li><strong>&lt;main&gt; : </strong>Bagian utama konten halaman.</li>
+      <li><strong>&lt;section&gt; : </strong>Membagi konten ke dalam bagian tematik.
+      </li>
+      <li><strong>&lt;article&gt; : </strong>Menyimpan konten mandiri, seperti artikel atau postingan.
+      </li>
+      <li><strong>&lt;aside&gt; : </strong>Konten tambahan, seperti sidebar atau catatan.</li>
+      <li><strong>&lt;footer&gt; : </strong>Bagian bawah halaman, seperti hak cipta atau informasi kontak.</li>
+    </ul>
+  </section>
+  
+  <section>
+    <h1>Elemen Multimedia</h1>
+    <li><strong>&lt;audio&gt; : </strong>Menyisipkan audio.
+      Contoh</li>
+    <div class="code">
+      <div class="header"><button class="btn-copy" onclick="copyCode()">Copy</button><span>HTML<span></div>
+        <pre id="code-block">
+          <code>
+  &lt;audio controls&gt;
+    &lt;source src="audio.mp3" type="audio/mpeg"&gt;
+  &lt;/audio&gt;
+          </code>
+        </pre>
+    </div>
+      </div>
+  </section>
+  
+  <section>
+    <li><strong>&lt;vidio&gt; : </strong>Menyisipkan vidio. Contoh</li>
+    <div class="code">
+      <div class="header"><button class="btn-copy" onclick="copyCode()">Copy</button><span>HTML<span></div>
+        <pre id="code-block">
+          <code>
+  &lt;video controls&gt;
+    &lt;source src="video.mp4" type="video/mp4"&gt;
+  &lt;/video&gt;
+          </code>
+        </pre>
+    </div>
+      </div>
+  </section>
+  
+    <section>
+    <h1>Elemen Interaktif</h1>
+      <li><strong>&lt;script&gt; : </strong>Menyisipkan atau menghubungkan file JavaScript.</li>
+      <li><strong>&lt;details&gt; : </strong>Menyisipkan detail yang dapat diperluas (expandable).</li>
+      <li><strong>&lt;summary&gt; : </strong>Memberikan ringkasan untuk elemen &lt;summary&gt;.</li>
+    </section>
+  
+    <section id="elemen-html">
+      <h1>Elemen Khusus</h1>
+      <li><strong>&lt;table&gt; : </strong>Membuat tabel data.
+        Contoh</li>
+      <div class="code">
+        <div class="header"><button class="btn-copy" onclick="copyCode()">Copy</button><span>HTML<span></div>
+          <pre id="code-block">
+            <code>
+      &lt;table&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Judul Kolom&lt;/th&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Data&lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/table&gt;
+            </code>
+          </pre>
+      </div>
+        </div>
+        <li><strong>&lt;div&gt; : </strong>Elemen pembungkus serbaguna untuk mengelompokkan konten.</li>
+        <li><strong>&lt;span&gt; : </strong>Membungkus teks untuk styling tertentu.</li>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 new Panduan Belajar HTML Lengkap
+  </footer>
+  </body>
