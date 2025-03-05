@@ -110,12 +110,22 @@
         color: white;
       }
 
-      /* MEDIA QUERY untuk layar kecil */
-      @media (max-width: 480px) {
-        .container {
-          width: 90%;
-          padding: 10px;
-        }
+      @media screen and (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        width: 70px; /* atau sesuai kebutuhan */
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .sidebar:hover {
+        width: 200px; /* Lebarkan saat user hover */
+    }
+
+    .content {
+        margin-left: 80px; /* Pastikan konten tidak tertutup */
+    }
+      }
 
         th,
         td {
