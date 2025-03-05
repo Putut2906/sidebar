@@ -13,128 +13,117 @@
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-      /* --- General Styles --- */
+      /* Reset */
       body {
         font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
         margin: 0;
         padding: 0;
-        display: flex;
-        position: relative;
+        background-color: #f4f4f4;
         width: 800px;
-        justify-content: center;
-        align-items: center;
       }
 
+      /* Container utama */
       .container {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        width: 90%;
         max-width: 600px;
+        margin: 20px auto;
+        padding: 15px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      h2 {
         text-align: center;
       }
 
-      /* --- Header --- */
-      h1 {
-        color: #2e7d32;
-        font-size: 24px;
+      /* Form input */
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
       }
 
-      /* --- Form Styles --- */
-      .form-group {
-        margin: 10px 0;
-        text-align: left;
-      }
-
-      label {
-        font-weight: bold;
-        display: block;
+      .input-group label {
+        font-size: 14px;
         margin-bottom: 5px;
+        font-weight: bold;
       }
 
-      input,
-      select {
-        width: 100%;
+      .input-group input,
+      .input-group select {
         padding: 8px;
-        font-size: 16px;
         border: 1px solid #ccc;
         border-radius: 5px;
+        font-size: 14px;
       }
 
-      /* --- Button Styles --- */
+      /* Tombol */
       .button-group {
         display: flex;
-        justify-content: space-between;
         flex-wrap: wrap;
+        gap: 10px;
         margin-top: 10px;
       }
 
-      .btn {
+      .button-group button {
         flex: 1;
-        margin: 5px;
         padding: 10px;
         font-size: 14px;
         border: none;
         border-radius: 5px;
         cursor: pointer;
-        transition: all 0.3s ease;
-      }
-
-      .btn-green {
-        background: #4caf50;
         color: white;
       }
-      .btn-green:hover {
-        background: #388e3c;
+
+      #addTransaction {
+        background-color: #28a745;
+      }
+      #deleteLastRow {
+        background-color: #dc3545;
+      }
+      #savePdfButton {
+        background-color: #007bff;
       }
 
-      .btn-red {
-        background: #e53935;
-        color: white;
-      }
-      .btn-red:hover {
-        background: #c62828;
+      /* Tabel responsif */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
       }
 
-      .btn-blue {
-        background: #1e88e5;
-        color: white;
-      }
-      .btn-blue:hover {
-        background: #1565c0;
-      }
-
-      /* --- Table Styles --- */
       table {
         width: 100%;
-        margin-top: 20px;
         border-collapse: collapse;
+        margin-top: 10px;
       }
 
       th,
       td {
-        border: 1px solid #ddd;
-        padding: 10px;
+        border: 1px solid #000; /* Border hitam tebal */
+        padding: 8px;
         text-align: center;
+        font-size: 14px;
       }
 
       th {
-        background-color: #2e7d32;
+        background-color: #007bff;
         color: white;
       }
 
-      tbody tr:nth-child(even) {
-        background-color: #f2f2f2;
-      }
-
-      /* --- Responsive Design --- */
-      @media screen and (max-width: 600px) {
+      /* MEDIA QUERY untuk layar kecil */
+      @media (max-width: 480px) {
         .container {
-          padding: 15px;
+          width: 90%;
+          padding: 10px;
         }
-        .btn {
+
+        th,
+        td {
+          font-size: 12px;
+          padding: 6px;
+        }
+
+        .button-group button {
           font-size: 12px;
           padding: 8px;
         }
@@ -146,167 +135,158 @@
     <div id="sidebar-container"></div>
     <!-- Load Script -->
     <script src="script.js"></script>
-    <div class="container">
-      <h1>Laporan Keuangan Harian</h1>
 
-      <div class="form-group">
+    <div class="container">
+      <h2>Laporan Keuangan</h2>
+
+      <div class="input-group">
         <label for="date">Tanggal:</label>
         <input type="date" id="date" />
       </div>
 
-      <div class="form-group">
+      <div class="input-group">
         <label for="description">Keterangan:</label>
         <input type="text" id="description" placeholder="Masukkan keterangan" />
       </div>
 
-      <div class="form-group">
-        <label for="type">Tipe Transaksi:</label>
+      <div class="input-group">
+        <label for="type">Jenis:</label>
         <select id="type">
           <option value="income">Pemasukan</option>
           <option value="expense">Pengeluaran</option>
         </select>
       </div>
 
-      <div class="form-group">
+      <div class="input-group">
         <label for="amount">Jumlah (Rp):</label>
         <input type="number" id="amount" placeholder="Masukkan jumlah" />
       </div>
 
       <div class="button-group">
-        <button id="addTransaction" class="btn btn-green">
-          Tambah Transaksi
-        </button>
-        <button id="deleteLastRow" class="btn btn-red">
-          Hapus Baris Terakhir
-        </button>
-        <button id="savePdfButton" class="btn btn-blue">Simpan PDF</button>
+        <button id="addTransaction">Tambah Transaksi</button>
+        <button id="deleteLastRow">Hapus Baris Terakhir</button>
+        <button id="savePdfButton">Simpan PDF</button>
       </div>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Tanggal</th>
-            <th>Keterangan</th>
-            <th>Pemasukan (Rp)</th>
-            <th>Pengeluaran (Rp)</th>
-            <th>Saldo (Rp)</th>
-          </tr>
-        </thead>
-        <tbody id="transactionTable"></tbody>
-      </table>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Keterangan</th>
+              <th>Pemasukan (Rp)</th>
+              <th>Pengeluaran (Rp)</th>
+              <th>Saldo (Rp)</th>
+            </tr>
+          </thead>
+          <tbody id="transactionTable">
+            <!-- Data akan ditambahkan di sini -->
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <script>
       console.log("Script berhasil dimuat!");
 
-const transactions = JSON.parse(localStorage.getItem("transactions")) || [];
-const transactionTable = document.getElementById("transactionTable");
+      const transactions =
+        JSON.parse(localStorage.getItem("transactions")) || [];
+      const transactionTable = document.getElementById("transactionTable");
 
-// Fungsi untuk memperbarui tabel & menyimpan ke Local Storage
-function updateTable() {
-    transactionTable.innerHTML = "";
-    let balance = 0;
+      function updateTable() {
+        transactionTable.innerHTML = "";
+        let balance = 0;
 
-    transactions.forEach((t, index) => {
-        balance += t.type === "income" ? t.amount : -t.amount;
+        transactions.forEach((t, index) => {
+          balance += t.type === "income" ? t.amount : -t.amount;
 
-        const row = document.createElement("tr");
-        row.innerHTML = `
-            <td>${t.date}</td>
-            <td>${t.description}</td>
-            <td>${t.type === "income" ? t.amount.toLocaleString() : "-"}</td>
-            <td>${t.type === "expense" ? t.amount.toLocaleString() : "-"}</td>
-            <td>${balance.toLocaleString()}</td>
-        `;
-        transactionTable.appendChild(row);
-    });
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                  <td>${t.date}</td>
+                  <td>${t.description}</td>
+                  <td>${
+                    t.type === "income" ? t.amount.toLocaleString() : "-"
+                  }</td>
+                  <td>${
+                    t.type === "expense" ? t.amount.toLocaleString() : "-"
+                  }</td>
+                  <td>${balance.toLocaleString()}</td>
+              `;
+          transactionTable.appendChild(row);
+        });
 
-    // Simpan transaksi ke Local Storage
-    localStorage.setItem("transactions", JSON.stringify(transactions));
-}
+        localStorage.setItem("transactions", JSON.stringify(transactions));
+      }
 
-// Fungsi untuk menambah transaksi baru
-document.getElementById("addTransaction").addEventListener("click", () => {
-    const date = document.getElementById("date").value;
-    const description = document.getElementById("description").value;
-    const type = document.getElementById("type").value;
-    const amount = parseFloat(document.getElementById("amount").value);
+      document
+        .getElementById("addTransaction")
+        .addEventListener("click", () => {
+          const date = document.getElementById("date").value;
+          const description = document.getElementById("description").value;
+          const type = document.getElementById("type").value;
+          const amount = parseFloat(document.getElementById("amount").value);
 
-    if (!date || !description || isNaN(amount) || amount <= 0) {
-        alert("Mohon isi semua data dengan benar.");
-        return;
-    }
+          if (!date || !description || isNaN(amount) || amount <= 0) {
+            alert("Mohon isi semua data dengan benar.");
+            return;
+          }
 
-    transactions.push({ date, description, type, amount });
-    updateTable();
-});
+          transactions.push({ date, description, type, amount });
+          updateTable();
+        });
 
-// Fungsi untuk menghapus baris terakhir
-document.getElementById("deleteLastRow").addEventListener("click", () => {
-    if (transactions.length > 0) {
-        transactions.pop();
-        updateTable();
-    } else {
-        alert("Tidak ada data untuk dihapus.");
-    }
-});
+      document.getElementById("deleteLastRow").addEventListener("click", () => {
+        if (transactions.length > 0) {
+          transactions.pop();
+          updateTable();
+        } else {
+          alert("Tidak ada data untuk dihapus.");
+        }
+      });
 
-// Fungsi untuk menyimpan PDF
-document.getElementById("savePdfButton").addEventListener("click", () => {
-    if (transactions.length === 0) {
-        alert("Tidak ada data transaksi untuk disimpan!");
-        return;
-    }
+      document.getElementById("savePdfButton").addEventListener("click", () => {
+        if (transactions.length === 0) {
+          alert("Tidak ada data transaksi untuk disimpan!");
+          return;
+        }
 
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
 
-    doc.setFontSize(16);
-    doc.setFont("helvetica", "bold");
-    doc.text("Laporan Keuangan Harian", 14, 15);
+        doc.setFontSize(16);
+        doc.text("Laporan Keuangan Harian", 14, 15);
 
-    const tableColumn = ["Tanggal", "Keterangan", "Pemasukan (Rp)", "Pengeluaran (Rp)", "Saldo (Rp)"];
-    const tableRows = [];
+        const tableColumn = [
+          "Tanggal",
+          "Keterangan",
+          "Pemasukan (Rp)",
+          "Pengeluaran (Rp)",
+          "Saldo (Rp)",
+        ];
+        const tableRows = [];
 
-    let balance = 0;
-    transactions.forEach((t) => {
-        balance += t.type === "income" ? t.amount : -t.amount;
-        tableRows.push([
+        let balance = 0;
+        transactions.forEach((t) => {
+          balance += t.type === "income" ? t.amount : -t.amount;
+          tableRows.push([
             t.date,
             t.description,
             t.type === "income" ? t.amount.toLocaleString() : "-",
             t.type === "expense" ? t.amount.toLocaleString() : "-",
             balance.toLocaleString(),
-        ]);
-    });
+          ]);
+        });
 
-    doc.autoTable({
-        head: [tableColumn],
-        body: tableRows,
-        startY: 25,
-        styles: {
-            fontSize: 10,
-            halign: "center",
-            cellPadding: 3,
-            lineWidth: 0.5,
-            lineColor: [0, 0, 0],
-        },
-        headStyles: {
-            fillColor: [46, 125, 50],
-            textColor: [255, 255, 255],
-            fontSize: 12,
-            halign: "center",
-            lineWidth: 0.8,
-        },
-        alternateRowStyles: { fillColor: [240, 240, 240] },
-        margin: { top: 20 },
-    });
+        doc.autoTable({
+          head: [tableColumn],
+          body: tableRows,
+          startY: 20,
+          styles: { lineWidth: 0.5, lineColor: [0, 0, 0] },
+        });
+        doc.save("Laporan_Keuangan.pdf");
+      });
 
-    doc.save("Laporan_Keuangan.pdf");
-});
-
-// **Saat halaman dimuat, ambil data dari Local Storage**
-updateTable();
+      updateTable();
     </script>
   </body>
 </html>
