@@ -98,47 +98,46 @@
             width: 100%;
             overflow-x: auto;
         }
+  }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
 
-        th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-            text-align: center;
-            font-size: 14px;
-        }
+  th,
+  td {
+    border: 1px solid #000; /* Border hitam tebal */
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+  }
 
-        th {
-            background-color: #007bff;
-            color: white;
-        }
+  th {
+    background-color: #007bff;
+    color: white;
+  }
 
-        /* MEDIA QUERY untuk layar kecil */
-        @media (max-width: 768px) {
-            .container {
-                width: 90%;
-                padding: 10px;
-            }
+  /* MEDIA QUERY untuk layar kecil */
+  @media (max-width: 480px) {
+    .container {
+      width: 90%;
+      padding: 10px;
+    }
 
-            .table-container {
-                overflow-x: auto;
-            }
+    th,
+    td {
+      font-size: 12px;
+      padding: 6px;
+    }
 
-            th, td {
-                font-size: 12px;
-                padding: 6px;
-            }
-
-            .button-group button {
-                font-size: 12px;
-                padding: 8px;
-            }
-        }
-    </style>
+    .button-group button {
+      font-size: 12px;
+      padding: 8px;
+    }
+  }
+</style>
 </head>
 <body>
 
