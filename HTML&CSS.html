@@ -3,301 +3,313 @@
   <head>
     <meta charset="UTF-8" />
     <title>Drop Down Sidebar Menu | CodingLab</title>
-    <!-- Tambahkan pustaka jsPDF & autoTable -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.21/jspdf.plugin.autotable.min.js"></script>
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
       rel="stylesheet"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <style>
-      /* Reset */
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0px;
-        padding: 0px;
-        background-color: #f4f4f4;
-        display: flex;
-      }
+    <script>
+      window.addEventListener("error", function(event) {
+          if (event.target.tagName === "A" && event.target.getAttribute("href") === "index.html") {
+              window.location.href = "/";
+          }
+      }, true);
+  </script>
+  </head>
+  <body>
+    <div id="sidebar-container"></div>
+    <!-- Sidebar akan dimuat di sini -->
+    <script src="script.js"></script>
+    <script>  fetch('sidebar.html')
+        .then(response => response.text())
+        .then(data => document.getElementById('sidebar').innerHTML = data)
+        .catch(error => console.error('Gagal memuat sidebar:', error));</script>
+  </body>
+</html>
 
-      /* Container utama */
-      .container {
-        max-width: 600px;
-        margin: 20px auto;
-        padding: 15px;
-        background: white;
-        border-radius: 8px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-      }
+<style>
+  /* Reset */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0px;
+    padding: 0px;
+    background-color: #f4f4f4;
+    display: flex;
+  }
 
-      h2 {
-        text-align: center;
-      }
+  /* Container utama */
+  .container {
+    flex: 1;
+    margin-left: 80px; /* Sesuaikan dengan ukuran sidebar */
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
 
-      /* Form input */
-      .input-group {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 10px;
-      }
+  h2 {
+    text-align: center;
+  }
 
-      .input-group label {
-        font-size: 14px;
-        margin-bottom: 5px;
-        font-weight: bold;
-      }
+  /* Form input */
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
 
-      .input-group input,
-      .input-group select {
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        font-size: 14px;
-      }
+  .input-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
 
-      /* Tombol */
-      .button-group {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 10px;
-      }
+  .input-group input,
+  .input-group select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
 
-      .button-group button {
-        flex: 1;
-        padding: 10px;
-        font-size: 14px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        color: white;
-      }
+  /* Tombol */
+  .button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
 
-      #addTransaction {
-        background-color: #28a745;
-      }
-      #deleteLastRow {
-        background-color: #dc3545;
-      }
-      #savePdfButton {
-        background-color: #007bff;
-      }
+  .button-group button {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+  }
 
-      /* Tabel responsif */
-      .table-container {
-        width: 100%;
-        overflow-x: auto;
-      }
+  #addTransaction {
+    background-color: #28a745;
+  }
+  #deleteLastRow {
+    background-color: #dc3545;
+  }
+  #savePdfButton {
+    background-color: #007bff;
+  }
 
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 10px;
-      }
+  /* Tabel responsif */
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+  }
 
-      th,
-      td {
-        border: 1px solid #000; /* Border hitam tebal */
-        padding: 8px;
-        text-align: center;
-        font-size: 14px;
-      }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
 
-      th {
-        background-color: #007bff;
-        color: white;
-      }
+  th,
+  td {
+    border: 1px solid #000; /* Border hitam tebal */
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+  }
 
-      @media screen and (max-width: 768px) {
-    .sidebar {
+  th {
+    background-color: #007bff;
+    color: white;
+  }
+
+  /* MEDIA QUERY untuk layar kecil */
+  @media (max-width: 480px) {
+    .container {
+      width: 90%;
+      padding: 10px;
+    }
+
+    @media screen and (max-width: 768px) {
+      .sidebar {
         position: fixed;
         width: 70px; /* atau sesuai kebutuhan */
         width: 100px; /* atau sesuai kebutuhan */
         height: 100%;
         overflow: hidden;
+      }
+      
+    th,
+    td {
+      font-size: 12px;
+      padding: 6px;
     }
 
-    .sidebar:hover {
-        width: 200px; /* Lebarkan saat user hover */
+    .button-group button {
+      font-size: 12px;
+      padding: 8px;
     }
+  }
+</style>
+</head>
+<body>
+<!-- Sidebar Akan Dimuat di Sini -->
+<div id="sidebar-container"></div>
+<!-- Load Script -->
+<script src="script.js"></script>
 
-    .content {
-        margin-left: 80px; /* Pastikan konten tidak tertutup */
-    }
+<div class="container">
+  <h2>Laporan Keuangan</h2>
+
+  <div class="input-group">
+    <label for="date">Tanggal:</label>
+    <input type="date" id="date" />
+  </div>
+
+  <div class="input-group">
+    <label for="description">Keterangan:</label>
+    <input type="text" id="description" placeholder="Masukkan keterangan" />
+  </div>
+
+  <div class="input-group">
+    <label for="type">Jenis:</label>
+    <select id="type">
+      <option value="income">Pemasukan</option>
+      <option value="expense">Pengeluaran</option>
+    </select>
+  </div>
+
+  <div class="input-group">
+    <label for="amount">Jumlah (Rp):</label>
+    <input type="number" id="amount" placeholder="Masukkan jumlah" />
+  </div>
+
+  <div class="button-group">
+    <button id="addTransaction">Tambah Transaksi</button>
+    <button id="deleteLastRow">Hapus Baris Terakhir</button>
+    <button id="savePdfButton">Simpan PDF</button>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Tanggal</th>
+          <th>Keterangan</th>
+          <th>Pemasukan (Rp)</th>
+          <th>Pengeluaran (Rp)</th>
+          <th>Saldo (Rp)</th>
+        </tr>
+      </thead>
+      <tbody id="transactionTable">
+        <!-- Data akan ditambahkan di sini -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+  console.log("Script berhasil dimuat!");
+
+  const transactions =
+    JSON.parse(localStorage.getItem("transactions")) || [];
+  const transactionTable = document.getElementById("transactionTable");
+
+  function updateTable() {
+    transactionTable.innerHTML = "";
+    let balance = 0;
+
+    transactions.forEach((t, index) => {
+      balance += t.type === "income" ? t.amount : -t.amount;
+
+      const row = document.createElement("tr");
+      row.innerHTML = `
+              <td>${t.date}</td>
+              <td>${t.description}</td>
+              <td>${
+                t.type === "income" ? t.amount.toLocaleString() : "-"
+              }</td>
+              <td>${
+                t.type === "expense" ? t.amount.toLocaleString() : "-"
+              }</td>
+              <td>${balance.toLocaleString()}</td>
+          `;
+      transactionTable.appendChild(row);
+    });
+
+    localStorage.setItem("transactions", JSON.stringify(transactions));
+  }
+
+  document
+    .getElementById("addTransaction")
+    .addEventListener("click", () => {
+      const date = document.getElementById("date").value;
+      const description = document.getElementById("description").value;
+      const type = document.getElementById("type").value;
+      const amount = parseFloat(document.getElementById("amount").value);
+
+      if (!date || !description || isNaN(amount) || amount <= 0) {
+        alert("Mohon isi semua data dengan benar.");
+        return;
       }
 
-        th,
-        td {
-          font-size: 12px;
-          padding: 6px;
-        }
-
-        .button-group button {
-          font-size: 12px;
-          padding: 8px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Sidebar Akan Dimuat di Sini -->
-    <div id="sidebar-container"></div>
-    <!-- Load Script -->
-    <script src="script.js"></script>
-
-    <div class="container">
-      <h2>Laporan Keuangan</h2>
-
-      <div class="input-group">
-        <label for="date">Tanggal:</label>
-        <input type="date" id="date" />
-      </div>
-
-      <div class="input-group">
-        <label for="description">Keterangan:</label>
-        <input type="text" id="description" placeholder="Masukkan keterangan" />
-      </div>
-
-      <div class="input-group">
-        <label for="type">Jenis:</label>
-        <select id="type">
-          <option value="income">Pemasukan</option>
-          <option value="expense">Pengeluaran</option>
-        </select>
-      </div>
-
-      <div class="input-group">
-        <label for="amount">Jumlah (Rp):</label>
-        <input type="number" id="amount" placeholder="Masukkan jumlah" />
-      </div>
-
-      <div class="button-group">
-        <button id="addTransaction">Tambah Transaksi</button>
-        <button id="deleteLastRow">Hapus Baris Terakhir</button>
-        <button id="savePdfButton">Simpan PDF</button>
-      </div>
-
-      <div class="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Tanggal</th>
-              <th>Keterangan</th>
-              <th>Pemasukan (Rp)</th>
-              <th>Pengeluaran (Rp)</th>
-              <th>Saldo (Rp)</th>
-            </tr>
-          </thead>
-          <tbody id="transactionTable">
-            <!-- Data akan ditambahkan di sini -->
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <script>
-      console.log("Script berhasil dimuat!");
-
-      const transactions =
-        JSON.parse(localStorage.getItem("transactions")) || [];
-      const transactionTable = document.getElementById("transactionTable");
-
-      function updateTable() {
-        transactionTable.innerHTML = "";
-        let balance = 0;
-
-        transactions.forEach((t, index) => {
-          balance += t.type === "income" ? t.amount : -t.amount;
-
-          const row = document.createElement("tr");
-          row.innerHTML = `
-                  <td>${t.date}</td>
-                  <td>${t.description}</td>
-                  <td>${
-                    t.type === "income" ? t.amount.toLocaleString() : "-"
-                  }</td>
-                  <td>${
-                    t.type === "expense" ? t.amount.toLocaleString() : "-"
-                  }</td>
-                  <td>${balance.toLocaleString()}</td>
-              `;
-          transactionTable.appendChild(row);
-        });
-
-        localStorage.setItem("transactions", JSON.stringify(transactions));
-      }
-
-      document
-        .getElementById("addTransaction")
-        .addEventListener("click", () => {
-          const date = document.getElementById("date").value;
-          const description = document.getElementById("description").value;
-          const type = document.getElementById("type").value;
-          const amount = parseFloat(document.getElementById("amount").value);
-
-          if (!date || !description || isNaN(amount) || amount <= 0) {
-            alert("Mohon isi semua data dengan benar.");
-            return;
-          }
-
-          transactions.push({ date, description, type, amount });
-          updateTable();
-        });
-
-      document.getElementById("deleteLastRow").addEventListener("click", () => {
-        if (transactions.length > 0) {
-          transactions.pop();
-          updateTable();
-        } else {
-          alert("Tidak ada data untuk dihapus.");
-        }
-      });
-
-      document.getElementById("savePdfButton").addEventListener("click", () => {
-        if (transactions.length === 0) {
-          alert("Tidak ada data transaksi untuk disimpan!");
-          return;
-        }
-
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-
-        doc.setFontSize(16);
-        doc.text("Laporan Keuangan Harian", 14, 15);
-
-        const tableColumn = [
-          "Tanggal",
-          "Keterangan",
-          "Pemasukan (Rp)",
-          "Pengeluaran (Rp)",
-          "Saldo (Rp)",
-        ];
-        const tableRows = [];
-
-        let balance = 0;
-        transactions.forEach((t) => {
-          balance += t.type === "income" ? t.amount : -t.amount;
-          tableRows.push([
-            t.date,
-            t.description,
-            t.type === "income" ? t.amount.toLocaleString() : "-",
-            t.type === "expense" ? t.amount.toLocaleString() : "-",
-            balance.toLocaleString(),
-          ]);
-        });
-
-        doc.autoTable({
-          head: [tableColumn],
-          body: tableRows,
-          startY: 20,
-          styles: { lineWidth: 0.5, lineColor: [0, 0, 0] },
-        });
-        doc.save("Laporan_Keuangan.pdf");
-      });
-
+      transactions.push({ date, description, type, amount });
       updateTable();
-    </script>
-  </body>
-</html>
+    });
+
+  document.getElementById("deleteLastRow").addEventListener("click", () => {
+    if (transactions.length > 0) {
+      transactions.pop();
+      updateTable();
+    } else {
+      alert("Tidak ada data untuk dihapus.");
+    }
+  });
+
+  document.getElementById("savePdfButton").addEventListener("click", () => {
+    if (transactions.length === 0) {
+      alert("Tidak ada data transaksi untuk disimpan!");
+      return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFontSize(16);
+    doc.text("Laporan Keuangan Harian", 14, 15);
+
+    const tableColumn = [
+      "Tanggal",
+      "Keterangan",
+      "Pemasukan (Rp)",
+      "Pengeluaran (Rp)",
+      "Saldo (Rp)",
+    ];
+    const tableRows = [];
+
+    let balance = 0;
+    transactions.forEach((t) => {
+      balance += t.type === "income" ? t.amount : -t.amount;
+      tableRows.push([
+        t.date,
+        t.description,
+        t.type === "income" ? t.amount.toLocaleString() : "-",
+        t.type === "expense" ? t.amount.toLocaleString() : "-",
+        balance.toLocaleString(),
+      ]);
+    });
+
+    doc.autoTable({
+      head: [tableColumn],
+      body: tableRows,
+      startY: 20,
+      styles: { lineWidth: 0.5, lineColor: [0, 0, 0] },
+    });
+    doc.save("Laporan_Keuangan.pdf");
+  });
+
+  updateTable();
+</script>
