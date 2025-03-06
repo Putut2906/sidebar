@@ -3,241 +3,301 @@
   <head>
     <meta charset="UTF-8" />
     <title>Drop Down Sidebar Menu | CodingLab</title>
+    <!-- Tambahkan pustaka jsPDF & autoTable -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.21/jspdf.plugin.autotable.min.js"></script>
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
       rel="stylesheet"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script>
-      window.addEventListener("error", function(event) {
-          if (event.target.tagName === "A" && event.target.getAttribute("href") === "index.html") {
-              window.location.href = "/";
-          }
-      }, true);
-  </script>
-  
-  </head>
-  <body>
-    <div id="sidebar-container"></div>
-    <!-- Sidebar akan dimuat di sini -->
-    <script src="script.js"></script>
-  </body>
-</html> 
     <style>
-        /* Reset dasar */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
+      /* Reset */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0px;
+        padding: 0px;
+        background-color: #f4f4f4;
+        display: flex;
+      }
 
-        /* Container utama */
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        }
+      /* Container utama */
+      .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 15px;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      }
 
-        /* Form input */
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 10px;
-        }
+      h2 {
+        text-align: center;
+      }
 
-        .input-group label {
-            font-size: 14px;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
+      /* Form input */
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 10px;
+      }
 
-        .input-group input, .input-group select {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
-        }
+      .input-group label {
+        font-size: 14px;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
 
-        /* Tombol */
-        .button-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
+      .input-group input,
+      .input-group select {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      /* Tombol */
+      .button-group {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      .button-group button {
+        flex: 1;
+        padding: 10px;
+        font-size: 14px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        color: white;
+      }
+
+      #addTransaction {
+        background-color: #28a745;
+      }
+      #deleteLastRow {
+        background-color: #dc3545;
+      }
+      #savePdfButton {
+        background-color: #007bff;
+      }
+
+      /* Tabel responsif */
+      .table-container {
+        width: 100%;
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+
+      th,
+      td {
+        border: 1px solid #000; /* Border hitam tebal */
+        padding: 8px;
+        text-align: center;
+        font-size: 14px;
+      }
+
+      th {
+        background-color: #007bff;
+        color: white;
+      }
+
+      @media screen and (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        width: 70px; /* atau sesuai kebutuhan */
+        width: 100px; /* atau sesuai kebutuhan */
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .sidebar:hover {
+        width: 200px; /* Lebarkan saat user hover */
+    }
+
+    .content {
+        margin-left: 80px; /* Pastikan konten tidak tertutup */
+    }
+      }
+
+        th,
+        td {
+          font-size: 12px;
+          padding: 6px;
         }
 
         .button-group button {
-            flex: 1;
-            padding: 10px;
-            font-size: 14px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            color: white;
+          font-size: 12px;
+          padding: 8px;
         }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar Akan Dimuat di Sini -->
+    <div id="sidebar-container"></div>
+    <!-- Load Script -->
+    <script src="script.js"></script>
 
-        #addTransaction {
-            background-color: #28a745;
-        }
-
-        #deleteLastRow {
-            background-color: #dc3545;
-        }
-
-        #savePdfButton {
-            background-color: #007bff;
-        }
-
-        /* Tabel responsif */
-        .table-container {
-            width: 100%;
-            overflow-x: auto;
-        }
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-
-  th,
-  td {
-    border: 1px solid #000; /* Border hitam tebal */
-    padding: 8px;
-    text-align: center;
-    font-size: 14px;
-  }
-
-  th {
-    background-color: #007bff;
-    color: white;
-  }
-
-  /* MEDIA QUERY untuk layar kecil */
-  @media (max-width: 480px) {
-    .container {
-      width: 90%;
-      padding: 10px;
-    }
-
-    th,
-    td {
-      font-size: 12px;
-      padding: 6px;
-    }
-
-    .button-group button {
-      font-size: 12px;
-      padding: 8px;
-    }
-  }
-</style>
-</head>
-<body>
-
-    <!-- Konten Utama -->
     <div class="container">
-        <h2>Laporan Keuangan Harian</h2>
+      <h2>Laporan Keuangan</h2>
 
-        <div class="input-group">
-            <label for="date">Tanggal</label>
-            <input type="date" id="date">
-        </div>
+      <div class="input-group">
+        <label for="date">Tanggal:</label>
+        <input type="date" id="date" />
+      </div>
 
-        <div class="input-group">
-            <label for="description">Keterangan</label>
-            <input type="text" id="description">
-        </div>
+      <div class="input-group">
+        <label for="description">Keterangan:</label>
+        <input type="text" id="description" placeholder="Masukkan keterangan" />
+      </div>
 
-        <div class="input-group">
-            <label for="type">Tipe</label>
-            <select id="type">
-                <option value="income">Pemasukan</option>
-                <option value="expense">Pengeluaran</option>
-            </select>
-        </div>
+      <div class="input-group">
+        <label for="type">Jenis:</label>
+        <select id="type">
+          <option value="income">Pemasukan</option>
+          <option value="expense">Pengeluaran</option>
+        </select>
+      </div>
 
-        <div class="input-group">
-            <label for="amount">Jumlah</label>
-            <input type="number" id="amount">
-        </div>
+      <div class="input-group">
+        <label for="amount">Jumlah (Rp):</label>
+        <input type="number" id="amount" placeholder="Masukkan jumlah" />
+      </div>
 
-        <div class="button-group">
-            <button id="addTransaction">Tambah</button>
-            <button id="deleteLastRow">Hapus</button>
-            <button id="savePdfButton">Simpan PDF</button>
-        </div>
+      <div class="button-group">
+        <button id="addTransaction">Tambah Transaksi</button>
+        <button id="deleteLastRow">Hapus Baris Terakhir</button>
+        <button id="savePdfButton">Simpan PDF</button>
+      </div>
 
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Tanggal</th>
-                        <th>Keterangan</th>
-                        <th>Pemasukan</th>
-                        <th>Pengeluaran</th>
-                        <th>Saldo</th>
-                    </tr>
-                </thead>
-                <tbody id="transactionTable"></tbody>
-            </table>
-        </div>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Tanggal</th>
+              <th>Keterangan</th>
+              <th>Pemasukan (Rp)</th>
+              <th>Pengeluaran (Rp)</th>
+              <th>Saldo (Rp)</th>
+            </tr>
+          </thead>
+          <tbody id="transactionTable">
+            <!-- Data akan ditambahkan di sini -->
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <script>
-        console.log("script.js berhasil dimuat!");
+      console.log("Script berhasil dimuat!");
 
-        // Data Transaksi
-        const transactions = [];
-        const transactionTable = document.getElementById("transactionTable");
+      const transactions =
+        JSON.parse(localStorage.getItem("transactions")) || [];
+      const transactionTable = document.getElementById("transactionTable");
 
-        document.getElementById("addTransaction").addEventListener("click", () => {
-            const date = document.getElementById("date").value;
-            const description = document.getElementById("description").value;
-            const type = document.getElementById("type").value;
-            const amount = parseFloat(document.getElementById("amount").value);
+      function updateTable() {
+        transactionTable.innerHTML = "";
+        let balance = 0;
 
-            if (!date || !description || isNaN(amount) || amount <= 0) {
-                alert("Mohon isi semua data dengan benar.");
-                return;
-            }
+        transactions.forEach((t, index) => {
+          balance += t.type === "income" ? t.amount : -t.amount;
 
-            transactions.push({ date, description, type, amount });
-
-            updateTable();
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                  <td>${t.date}</td>
+                  <td>${t.description}</td>
+                  <td>${
+                    t.type === "income" ? t.amount.toLocaleString() : "-"
+                  }</td>
+                  <td>${
+                    t.type === "expense" ? t.amount.toLocaleString() : "-"
+                  }</td>
+                  <td>${balance.toLocaleString()}</td>
+              `;
+          transactionTable.appendChild(row);
         });
 
-        function updateTable() {
-            transactionTable.innerHTML = "";
-            let balance = 0;
+        localStorage.setItem("transactions", JSON.stringify(transactions));
+      }
 
-            transactions.forEach((t) => {
-                balance += t.type === "income" ? t.amount : -t.amount;
+      document
+        .getElementById("addTransaction")
+        .addEventListener("click", () => {
+          const date = document.getElementById("date").value;
+          const description = document.getElementById("description").value;
+          const type = document.getElementById("type").value;
+          const amount = parseFloat(document.getElementById("amount").value);
 
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${t.date}</td>
-                    <td>${t.description}</td>
-                    <td>${t.type === "income" ? t.amount.toLocaleString() : "-"}</td>
-                    <td>${t.type === "expense" ? t.amount.toLocaleString() : "-"}</td>
-                    <td>${balance.toLocaleString()}</td>
-                `;
-                transactionTable.appendChild(row);
-            });
+          if (!date || !description || isNaN(amount) || amount <= 0) {
+            alert("Mohon isi semua data dengan benar.");
+            return;
+          }
+
+          transactions.push({ date, description, type, amount });
+          updateTable();
+        });
+
+      document.getElementById("deleteLastRow").addEventListener("click", () => {
+        if (transactions.length > 0) {
+          transactions.pop();
+          updateTable();
+        } else {
+          alert("Tidak ada data untuk dihapus.");
+        }
+      });
+
+      document.getElementById("savePdfButton").addEventListener("click", () => {
+        if (transactions.length === 0) {
+          alert("Tidak ada data transaksi untuk disimpan!");
+          return;
         }
 
-        document.getElementById("deleteLastRow").addEventListener("click", () => {
-            if (transactions.length > 0) {
-                transactions.pop();
-                updateTable();
-            } else {
-                alert("Tidak ada data untuk dihapus.");
-            }
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        doc.setFontSize(16);
+        doc.text("Laporan Keuangan Harian", 14, 15);
+
+        const tableColumn = [
+          "Tanggal",
+          "Keterangan",
+          "Pemasukan (Rp)",
+          "Pengeluaran (Rp)",
+          "Saldo (Rp)",
+        ];
+        const tableRows = [];
+
+        let balance = 0;
+        transactions.forEach((t) => {
+          balance += t.type === "income" ? t.amount : -t.amount;
+          tableRows.push([
+            t.date,
+            t.description,
+            t.type === "income" ? t.amount.toLocaleString() : "-",
+            t.type === "expense" ? t.amount.toLocaleString() : "-",
+            balance.toLocaleString(),
+          ]);
         });
+
+        doc.autoTable({
+          head: [tableColumn],
+          body: tableRows,
+          startY: 20,
+          styles: { lineWidth: 0.5, lineColor: [0, 0, 0] },
+        });
+        doc.save("Laporan_Keuangan.pdf");
+      });
+
+      updateTable();
     </script>
+  </body>
+</html>
