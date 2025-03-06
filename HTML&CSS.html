@@ -122,12 +122,19 @@ bisa sesuaikan dengan css ini <style>
     color: white;
   }
 
-  /* MEDIA QUERY untuk layar kecil */
-  @media (max-width: 480px) {
-    .container {
-      width: 90%;
-      padding: 10px;
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 60px;
     }
+    
+    .sidebar:hover {
+        width: 160px;
+    }
+
+    .container {
+        margin-left: 70px; /* Sesuaikan dengan ukuran sidebar */
+    }
+}
 
     th,
     td {
