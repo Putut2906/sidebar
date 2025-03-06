@@ -205,8 +205,26 @@ th {
         </div>
     </div>
     <script>
-        const transactions = [];
+        let transactions = JSON.parse(localStorage.getItem("transactions")) || [];
         const transactionTable = document.getElementById("transactionTable");
+
+        function updateTable() {
+            transactionTable.innerHTML = "";
+            let balance = 0;
+            transactions.forEach((t, index) => {
+                balance += t.type === "income" ? t.amount : -t.amount;
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${t.date}</td>
+                    <td>${t.description}</td>
+                    <td>${t.type === "income" ? t.amount.toLocaleString() : "-"}</td>
+                    <td>${t.type === "expense" ? t.amount.toLocaleString() : "-"}</td>
+                    <td>${balance.toLocaleString()}</td>
+                `;
+                transactionTable.appendChild(row);
+            });
+            localStorage.setItem("transactions", JSON.stringify(transactions));
+        }
         document.getElementById("addTransaction").addEventListener("click", () => {
             const date = document.getElementById("date").value;
             const description = document.getElementById("description").value;
@@ -219,22 +237,6 @@ th {
             transactions.push({ date, description, type, amount });
             updateTable();
         });
-        function updateTable() {
-            transactionTable.innerHTML = "";
-            let balance = 0;
-            transactions.forEach((t) => {
-                balance += t.type === "income" ? t.amount : -t.amount;
-                const row = document.createElement("tr");
-                row.innerHTML = `
-                    <td>${t.date}</td>
-                    <td>${t.description}</td>
-                    <td>${t.type === "income" ? t.amount.toLocaleString() : "-"}</td>
-                    <td>${t.type === "expense" ? t.amount.toLocaleString() : "-"}</td>
-                    <td>${balance.toLocaleString()}</td>
-                `;
-                transactionTable.appendChild(row);
-            });
-        }
         document.getElementById("deleteLastRow").addEventListener("click", () => {
             if (transactions.length > 0) {
                 transactions.pop();
@@ -259,7 +261,8 @@ th {
                 balance += t.type === "income" ? t.amount : -t.amount;
                 tableRows.push([t.date, t.description, t.type === "income" ? t.amount.toLocaleString() : "-", t.type === "expense" ? t.amount.toLocaleString() : "-", balance.toLocaleString()]);
             });
-            doc.autoTable({ head: [tableColumn], body: tableRows, startY: 20, theme: "grid", styles: { fontSize: 10 }, headStyles: { fillColor: [0, 128, 0] } });
+            doc.autoTable({ head: [tableColumn], body: tableRows, startY: 20 });
             doc.save("Laporan_Keuangan.pdf");
         });
+        updateTable();
     </script>
