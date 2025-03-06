@@ -32,14 +32,18 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
+            display: flex;
         }
         .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 15px;
+            flex: 1;
+            margin-left: 80px;
+            padding: 20px;
             background: white;
             border-radius: 8px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
         }
         .input-group {
             display: flex;
@@ -86,7 +90,7 @@
             margin-top: 10px;
         }
         th, td {
-            border: 1px solid #ccc;
+            border: 1px solid #000;
             padding: 8px;
             text-align: center;
             font-size: 14px;
@@ -94,6 +98,20 @@
         th {
             background-color: #007bff;
             color: white;
+        }
+        @media (max-width: 480px) {
+            .container {
+                width: 90%;
+                padding: 10px;
+            }
+            th, td {
+                font-size: 12px;
+                padding: 6px;
+            }
+            .button-group button {
+                font-size: 12px;
+                padding: 8px;
+            }
         }
     </style>
 </head>
