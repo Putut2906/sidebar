@@ -28,113 +28,123 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
     
-    <style>
-        /* Reset */
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
+<style>
+  /* Reset */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0px;
+    padding: 0px;
+    background-color: #f4f4f4;
+    display: flex;
+  }
 
-        /* Container utama */
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        }
+  /* Container utama */
+  .container {
+    flex: 1;
+    margin-left: 80px; /* Sesuaikan dengan ukuran sidebar */
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
 
-        h2 {
-            text-align: center;
-        }
+  h2 {
+    text-align: center;
+  }
 
-        /* Form input */
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 10px;
-        }
+  /* Form input */
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
 
-        .input-group label {
-            font-size: 14px;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
+  .input-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
 
-        .input-group input, .input-group select {
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 14px;
-        }
+  .input-group input,
+  .input-group select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
 
-        /* Tombol */
-        .button-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
+  /* Tombol */
+  .button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+  }
 
-        .button-group button {
-            flex: 1;
-            padding: 10px;
-            font-size: 14px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            color: white;
-        }
+  .button-group button {
+    flex: 1;
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+  }
 
-        #addTransaction { background-color: #28a745; }
-        #deleteLastRow { background-color: #dc3545; }
-        #savePdfButton { background-color: #007bff; }
+  #addTransaction {
+    background-color: #28a745;
+  }
+  #deleteLastRow {
+    background-color: #dc3545;
+  }
+  #savePdfButton {
+    background-color: #007bff;
+  }
 
-        /* Tabel responsif */
-        .table-container {
-            width: 100%;
-            overflow-x: auto;
-        }
+  /* Tabel responsif */
+  .table-container {
+    width: 100%;
+    overflow-x: auto;
+  }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
 
-        th, td {
-            border: 1px solid #000; /* Border hitam tebal */
-            padding: 8px;
-            text-align: center;
-            font-size: 14px;
-        }
+  th,
+  td {
+    border: 1px solid #000; /* Border hitam tebal */
+    padding: 8px;
+    text-align: center;
+    font-size: 14px;
+  }
 
-        th {
-            background-color: #007bff;
-            color: white;
-        }
+  th {
+    background-color: #007bff;
+    color: white;
+  }
 
-        /* MEDIA QUERY untuk layar kecil */
-        @media (max-width: 480px) {
-            .container {
-                width: 90%;
-                padding: 10px;
-            }
+  /* MEDIA QUERY untuk layar kecil */
+  @media (max-width: 480px) {
+    .container {
+      width: 90%;
+      padding: 10px;
+    }
 
-            th, td {
-                font-size: 12px;
-                padding: 6px;
-            }
+    th,
+    td {
+      font-size: 12px;
+      padding: 6px;
+    }
 
-            .button-group button {
-                font-size: 12px;
-                padding: 8px;
-            }
-        }
-    </style>
+    .button-group button {
+      font-size: 12px;
+      padding: 8px;
+    }
+  }
+</style>
 </head>
 <body>
 
