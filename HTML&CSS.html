@@ -24,8 +24,7 @@
     <script src="script.js"></script>
   </body>
 </html>
-
-<style>
+bisa sesuaikan dengan css ini <style>
   /* Reset */
   body {
     font-family: Arial, sans-serif;
@@ -214,7 +213,7 @@
       balance += t.type === "income" ? t.amount : -t.amount;
 
       const row = document.createElement("tr");
-      row.innerHTML = `
+      row.innerHTML = 
               <td>${t.date}</td>
               <td>${t.description}</td>
               <td>${
@@ -224,7 +223,7 @@
                 t.type === "expense" ? t.amount.toLocaleString() : "-"
               }</td>
               <td>${balance.toLocaleString()}</td>
-          `;
+          ;
       transactionTable.appendChild(row);
     });
 
