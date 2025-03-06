@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Drop Down Sidebar Menu | CodingLab</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/components/style.css" />
     <link
       href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
       rel="stylesheet"
@@ -21,9 +21,9 @@
   <body>
     <div id="sidebar-container"></div>
     <!-- Sidebar akan dimuat di sini -->
-    <script src="script.js"></script>
+    <script src="/components/script.js"></script>
   </body>
-</html>
+</html> 
     <style>
         /* Reset dasar */
         body {
@@ -31,34 +31,6 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            background-color: #007bff;
-            position: fixed;
-            top: 0;
-            left: -250px;
-            transition: left 0.3s ease;
-            padding-top: 20px;
-        }
-
-        .sidebar.active {
-            left: 0;
-        }
-
-        .sidebar-toggle {
-            display: none;
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
         }
 
         /* Container utama */
@@ -152,10 +124,6 @@
                 padding: 10px;
             }
 
-            .sidebar-toggle {
-                display: block;
-            }
-
             .table-container {
                 overflow-x: auto;
             }
@@ -173,12 +141,6 @@
     </style>
 </head>
 <body>
-
-    <!-- Tombol Sidebar (Hanya muncul di layar kecil) -->
-    <button id="toggleSidebar" class="sidebar-toggle">☰ Menu</button>
-
-    <!-- Sidebar -->
-    <div id="sidebar-container" class="sidebar"></div>
 
     <!-- Konten Utama -->
     <div class="container">
@@ -231,14 +193,6 @@
 
     <script>
         console.log("script.js berhasil dimuat!");
-
-        // Toggle Sidebar untuk layar kecil
-        const sidebar = document.getElementById("sidebar-container");
-        const toggleButton = document.getElementById("toggleSidebar");
-
-        toggleButton.addEventListener("click", () => {
-            sidebar.classList.toggle("active");
-        });
 
         // Data Transaksi
         const transactions = [];
