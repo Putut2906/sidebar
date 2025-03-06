@@ -3,16 +3,89 @@
   <head>
     <meta charset="UTF-8" />
     <title>Drop Down Sidebar Menu | CodingLab</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="/components/style.css" />
     <link
       href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
       rel="stylesheet"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      window.addEventListener("error", function(event) {
+          if (event.target.tagName === "A" && event.target.getAttribute("href") === "index.html") {
+              window.location.href = "/";
+          }
+      }, true);
+  </script>
+  
   </head>
   <body>
     <div id="sidebar-container"></div>
     <!-- Sidebar akan dimuat di sini -->
-    <script src="script.js"></script>
+    <script src="/components/script.js"></script>
   </body>
 </html>
+<style>
+  body {
+      font-family: Arial, sans-serif;
+      margin: 0px;
+      padding: 0px;
+      background-color: #f4f4f4;
+      display: flex;
+  }
+  .container {
+      flex: 1;
+      margin-left: 80px;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .hero {
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      color: white;
+      padding: 60px 20px;
+      border-radius: 10px;
+      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+      text-align: center;
+  }
+  .feature-box {
+      transition: transform 0.3s ease-in-out;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+  }
+  .feature-box:hover {
+      transform: scale(1.05);
+  }
+</style>
+</head>
+<body>
+<!-- Sidebar Akan Dimuat di Sini -->
+<div id="sidebar-container"></div>
+<!-- Load Script -->
+<script src="script.js"></script>
+
+<div class="container">
+  <!-- Hero Section -->
+  <section class="hero">
+      <h2 class="text-4xl font-bold mb-4">Selamat Datang di Website Kami</h2>
+      <p class="text-gray-200">Temukan pengalaman terbaik bersama kami.</p>
+  </section>
+  <!-- Features -->
+  <section class="grid md:grid-cols-3 gap-6 p-10">
+      <div class="feature-box">
+          <h3 class="text-xl font-bold">Cepat</h3>
+          <p>Website kami dioptimalkan untuk kecepatan terbaik.</p>
+      </div>
+      <div class="feature-box">
+          <h3 class="text-xl font-bold">Responsif</h3>
+          <p>Bisa diakses dari perangkat apapun dengan tampilan optimal.</p>
+      </div>
+      <div class="feature-box">
+          <h3 class="text-xl font-bold">Interaktif</h3>
+          <p>Dilengkapi fitur menarik untuk pengalaman terbaik.</p>
+      </div>
+  </section>
+</div>
